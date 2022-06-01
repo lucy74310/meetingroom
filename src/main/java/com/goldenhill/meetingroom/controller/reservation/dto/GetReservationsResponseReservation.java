@@ -1,15 +1,20 @@
 package com.goldenhill.meetingroom.controller.reservation.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
 
 @Data
-public class GetReservationResponseReservation {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetReservationsResponseReservation {
 
     private long reservationNo;
     private long roomNo;
-    private String roomName;
     private OffsetDateTime startDateTime;
     private OffsetDateTime endDateTime;
     private String clientName;

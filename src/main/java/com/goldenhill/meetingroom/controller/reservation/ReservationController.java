@@ -1,32 +1,31 @@
 package com.goldenhill.meetingroom.controller.reservation;
 
-import com.goldenhill.meetingroom.controller.reservation.dto.GetReservationRequest;
-import com.goldenhill.meetingroom.controller.reservation.dto.GetReservationResponse;
-import com.goldenhill.meetingroom.controller.reservation.dto.GetReservationResponseReservation;
+import com.goldenhill.meetingroom.controller.reservation.dto.GetReservationsResponse;
+import com.goldenhill.meetingroom.controller.reservation.dto.GetReservationsResponseReservation;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 
 @RestController
 public class ReservationController {
 
 
-    @GetMapping("/reservation")
-    public GetReservationResponse reservationList() {
-        GetReservationResponse reservationResponse = new GetReservationResponse();
+    @GetMapping("/reservations")
+    public GetReservationsResponse reservationList() {
 
-        GetReservationResponseReservation reservation = new GetReservationResponseReservation();
+        GetReservationsResponseReservation reservation = GetReservationsResponseReservation.builder()
+                        .clientName("조부광")
+                        .roomNo(1)
+                        .startDateTime(OffsetDateTime.now())
+                        .endDateTime(OffsetDateTime.parse("2022-06-03T14:00:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME))
+                        .build();
 
-        reservation.setClientName("조부광");
-        reservation.setRoomNo(1);
-        reservation.setStartDateTime(OffsetDateTime.now());
-        reservation.setEndDateTime(OffsetDateTime.parse("2022-06-03T14:00:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-
-        reservationResponse.setReservation(reservation);
-        return reservationResponse;
+        return GetReservationsResponse.builder()
+                .reservations(Arrays.asList(reservation))
+                .build();
     }
 }
